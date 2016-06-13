@@ -94,6 +94,20 @@ public class SecondActivity extends AppCompatActivity {
                     startActivity(chooser);
             }
         });
+
+        findViewById(R.id.sendDrawable).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Uri imageUri = Uri.parse("android.resource://com.example/drawable" +
+                                      R.drawable.user);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                intent.putExtra(Intent.EXTRA_TEXT, "Image is attached");
+                startActivity(Intent.createChooser(intent, "Send Image"));
+            }
+        });
     }
 
 
