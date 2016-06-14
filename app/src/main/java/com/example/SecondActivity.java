@@ -55,9 +55,16 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+               /* String number = "smsto:" + mobile.getText().toString().trim();
+                Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse(number));
+                if(smsIntent.resolveActivity(getPackageManager()) !=null) {
+                    startActivity(smsIntent);
+                }*/
                 String number = mobile.getText().toString().trim();
                 Intent sms = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", number, null));
-                startActivity(sms);
+                if(sms.resolveActivity(getPackageManager()) !=null) {
+                    startActivity(sms);
+                }
             }
         });
 
@@ -106,6 +113,18 @@ public class SecondActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 intent.putExtra(Intent.EXTRA_TEXT, "Image is attached");
                 startActivity(Intent.createChooser(intent, "Send Image"));
+            }
+        });
+
+        findViewById(R.id.launchPlay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent playstore = new Intent(Intent.ACTION_VIEW);
+                playstore.setData(Uri.parse("market://details?id=dolphin.developers.com"));
+                if(playstore.resolveActivity(getPackageManager()) !=null){
+                    startActivity(Intent.createChooser(playstore,"Launch Market"));
+                }
             }
         });
     }
